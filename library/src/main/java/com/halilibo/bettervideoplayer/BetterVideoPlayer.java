@@ -867,8 +867,9 @@ public class BetterVideoPlayer extends RelativeLayout implements IUserMethods,
     // Utilities
 
     private static void LOG(String message, Object... args) {
-        if (args != null)
+        if (args != null && args.length > 0) {
             message = String.format(message, args);
+        }
         Log.d("BetterVideoPlayer", message);
     }
 
