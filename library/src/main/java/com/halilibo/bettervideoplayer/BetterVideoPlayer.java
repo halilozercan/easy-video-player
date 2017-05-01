@@ -23,6 +23,7 @@ import android.support.annotation.IntDef;
 import android.support.annotation.IntRange;
 import android.support.annotation.MenuRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.RawRes;
 import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
@@ -247,6 +248,10 @@ public class BetterVideoPlayer extends RelativeLayout implements IUserMethods,
     @Override
     public void setCallback(@NonNull BetterVideoCallback callback) {
         mCallback = callback;
+    }
+
+    public void setCaptionLoadListener(@Nullable CaptionsView.CaptionsViewLoadListener listener) {
+        mSubView.setCaptionsViewLoadListener(listener);
     }
 
     @Override
