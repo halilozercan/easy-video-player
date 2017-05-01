@@ -472,6 +472,10 @@ public class BetterVideoPlayer extends RelativeLayout implements IUserMethods,
         }
     }
 
+    public void setHideControlsDuration(int hideControlsDuration) {
+        this.mHideControlsDuration = hideControlsDuration;
+    }
+
     @Override
     public void enableControls(boolean andShow) {
         mControlsDisabled = false;
