@@ -655,11 +655,17 @@ public class BetterVideoPlayer extends RelativeLayout implements IUserMethods,
     @Override
     public void onBufferingUpdate(MediaPlayer mediaPlayer, int percent) {
         LOG("Buffering: %d%%", percent);
-        if (mCallback != null)
+        if (mCallback != null) {
             mCallback.onBuffering(percent);
+        }
         if (mSeeker != null) {
-            if (percent == 100) mSeeker.setSecondaryProgress(0);
-            else mSeeker.setSecondaryProgress(mSeeker.getMax() * (percent / 100));
+            if (percent == 100) {
+                mSeeker.setSecondaryProgress(0);
+            } else {
+                float percentage = percent / 100f;
+                int secondaryProgress = (int) (mSeeker.getMax() * percentage);
+                mSeeker.setSecondaryProgress(secondaryProgress);
+            }
         }
     }
 
