@@ -164,6 +164,7 @@ public class BetterVideoPlayer extends RelativeLayout implements IUserMethods,
     private boolean mShowTotalDuration = false;
     private boolean mAutoPlay;
     private int mInitialPosition = -1;
+    private int mHideControlsDuration = 2000; // defaults to 2 seconds.
     private boolean mControlsDisabled;
 
 
@@ -189,6 +190,7 @@ public class BetterVideoPlayer extends RelativeLayout implements IUserMethods,
                 mPauseDrawable = a.getDrawable(R.styleable.BetterVideoPlayer_bvp_pauseDrawable);
                 mRestartDrawable = a.getDrawable(R.styleable.BetterVideoPlayer_bvp_restartDrawable);
                 mLoadingStyle = a.getInt(R.styleable.SpinKitView_SpinKit_Style, 0);
+                mHideControlsDuration = a.getInteger(R.styleable.BetterVideoPlayer_bvp_hideControlsDuration, mHideControlsDuration);
 
                 mHideControlsOnPlay = a.getBoolean(R.styleable.BetterVideoPlayer_bvp_hideControlsOnPlay, false);
                 mAutoPlay = a.getBoolean(R.styleable.BetterVideoPlayer_bvp_autoPlay, false);
@@ -437,6 +439,10 @@ public class BetterVideoPlayer extends RelativeLayout implements IUserMethods,
         if (isControlsShown()) {
             hideControls();
         } else {
+            if(mHideControlsDuration >= 0) {
+                mHandler.removeCallbacks(hideControlsRunnable);
+                mHandler.postDelayed(hideControlsRunnable, mHideControlsDuration);
+            }
             showControls();
         }
     }
