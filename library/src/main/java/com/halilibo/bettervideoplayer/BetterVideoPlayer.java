@@ -1066,7 +1066,7 @@ public class BetterVideoPlayer extends RelativeLayout implements IUserMethods,
                 String progressText =
                         Util.getDurationString((long) finalTime, false) +
                                 " [" + (dir == Direction.LEFT ? "-":"+") +
-                                Util.getDurationString((long) diffTime, false) +
+                                Util.getDurationString((long) Math.abs(diffTime), false) +
                                 "]";
                 mPositionTextView.setText(progressText);
             }
