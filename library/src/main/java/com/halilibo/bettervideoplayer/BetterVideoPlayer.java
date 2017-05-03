@@ -207,7 +207,7 @@ public class BetterVideoPlayer extends RelativeLayout implements IUserMethods,
                 mSubViewTextColor = a.getColor(R.styleable.BetterVideoPlayer_bvp_captionColor,
                         getResources().getColor(R.color.bvp_subtitle_color));
 
-                mMenuId = a.getResourceId(R.styleable.BetterVideoPlayer_bvp_menu, R.menu.base);
+                mMenuId = a.getResourceId(R.styleable.BetterVideoPlayer_bvp_menu, -1);
 
             }
             catch (Exception e){
@@ -223,7 +223,7 @@ public class BetterVideoPlayer extends RelativeLayout implements IUserMethods,
             mLoop = false;
             mLoadingStyle = 0;
             mControlsDisabled = false;
-            mMenuId = R.menu.base;
+            mMenuId = -1;
             mSubViewTextSize = getResources().getDimensionPixelSize(R.dimen.bvp_subtitle_size);
             mSubViewTextColor = getResources().getColor(R.color.bvp_subtitle_color);
         }
@@ -828,7 +828,11 @@ public class BetterVideoPlayer extends RelativeLayout implements IUserMethods,
         mTooolbarFrame = li.inflate(R.layout.bvp_include_topbar, this, false);
         mToolbar = (Toolbar) mTooolbarFrame.findViewById(R.id.toolbar);
         mToolbar.setTitle(mTitle);
-        mToolbar.inflateMenu(mMenuId);
+        if(mMenuId != -1) {
+            // Don't inflate menu until the user is ready to do so.
+            // This allows them to call Toolbar#setMenuCallbacks()
+            mToolbar.inflateMenu(mMenuId);
+        }
         if(menuItemClickListener != null) {
             mToolbar.setOnMenuItemClickListener(menuItemClickListener);
         }
