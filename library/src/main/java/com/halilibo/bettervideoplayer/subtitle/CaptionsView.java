@@ -103,6 +103,7 @@ public class CaptionsView extends AppCompatTextView implements Runnable{
         this.mimeType = mime;
         if(path == null){
             track = new TreeMap<>();
+            return;
         }
         if (HelperMethods.isRemotePath(path)) {
             try {
