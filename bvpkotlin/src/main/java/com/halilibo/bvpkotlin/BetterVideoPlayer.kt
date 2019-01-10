@@ -985,6 +985,7 @@ class BetterVideoPlayer @JvmOverloads constructor(
     override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
         if (fromUser) {
             seekTo(progress)
+            mProgressCallback?.onUserSeek(progress)
             mPositionTextView.text = Util.getDurationString(progress.toLong(), false)
         }
     }
