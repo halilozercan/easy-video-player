@@ -1,6 +1,7 @@
 package com.halilibo.bvpkotlin
 
 import android.os.Handler
+import android.os.SystemClock
 import android.view.MotionEvent
 import android.view.View
 
@@ -87,19 +88,16 @@ internal abstract class OnSwipeTouchListener(
 
             MotionEvent.ACTION_UP -> {
                 if (initialGesture == 0) { // Finger did not move enough to trigger a swipe
-                    return if (doubleTapEnabled &&
-                            System.currentTimeMillis() - lastClick <= DOUBLE_TAP_THRESHOLD &&
-                            lastClick != 0L) {
-                        mHandler.removeCallbacks(futureClickRunnable)
-                        onDoubleTap(event)
-                        true
-                    } else {
-                        lastClick = System.currentTimeMillis()
-                        if (doubleTapEnabled)
-                            mHandler.postDelayed(futureClickRunnable, DOUBLE_TAP_THRESHOLD)
-                        else
-                            mHandler.post(futureClickRunnable)
-                        true
+                    if (doubleTapEnabled) {
+                        if (SystemClock.elapsedRealtime() - lastClick < 500) {
+                            mHandler.removeCallbacks(futureClickRunnable)
+                            onDoubleTap(event)
+                            return true
+                        }
+                        lastClick = SystemClock.elapsedRealtime()
+
+                        mHandler.postDelayed(futureClickRunnable, 500)
+                        return true
                     }
                 }
 

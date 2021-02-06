@@ -160,7 +160,7 @@ class CaptionsView @JvmOverloads constructor(
             }
 
             override fun onFail(e: Exception) {
-                Log.d(TAG, e.message)
+//                Log.d(TAG, e.message)
                 captionsViewLoadListener?.onCaptionLoadFailed(e, url.toString(), 0)
             }
         })
